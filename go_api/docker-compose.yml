@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+    dev-postgres:
+        image: postgres:15.1-alpine
+        ports:
+            - 5434:5432
+        environment:
+            POSTGRES_USER: "${POSTGRES_USER}"
+            POSTGRES_PASSWORD: "${POSTGRES_PW}"
+            POSTGRES_DB: "${POSTGRES_DB}"
+        restart: always
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        networks:
+            - lesson
+networks:
+    lesson:
+volumes:
+    postgres_data:
