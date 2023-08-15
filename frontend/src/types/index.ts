@@ -9,5 +9,11 @@ export type CsrfToken = {
 }
 export type Credential = {
   email: string
+  name: string
+  password: string
+}
+
+export type Login = {
+  email: string
   password: string
 }
