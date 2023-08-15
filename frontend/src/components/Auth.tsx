@@ -5,6 +5,7 @@ import { useMutateAuth } from '../hooks/useMutateAuth'
 export const Auth = () => {
   // useStateを使ってstateを定義する。
   const [email, setEmail] = useState('') // string
+  const [name, setName] = useState('')
   const [pw, setPw] = useState('') // string
   const [isLogin, setIsLogin] = useState(true) // boolean
   const { loginMutation, registerMutation } = useMutateAuth() // useMutateAuthのカスタムフックから2つの関数を読み込み。
@@ -24,6 +25,7 @@ export const Auth = () => {
       await registerMutation
         .mutateAsync({
           email: email,
+          name: name,
           password: pw,
         })
         // registerに成功した場合は、続けてloginMutationを呼び出すことで、自動ログインするようにする。
@@ -58,6 +60,18 @@ export const Auth = () => {
             value={email}
           />
         </div>
+        {!isLogin && (
+          <div>
+            <input
+              className="mb-3 px-3 text-sm py-2 border border-gray-300"
+              name="name"
+              type="text"
+              placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
+          </div>
+        )}
         <div>
           <input
             className="mb-3 px-3 text-sm py-2 border border-gray-300"

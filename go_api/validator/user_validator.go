@@ -10,6 +10,7 @@ import (
 // インターフェースを定義
 type IUserValidator interface {
 	UserValidate(user model.User) error
+	LoginValidate(user model.User) error
 }
 
 // 構造体を作成
@@ -22,6 +23,27 @@ func NewUserValidator() IUserValidator {
 
 func (uv *userValidator) UserValidate(user model.User) error {
 	// is.Emailを使うことで、メールアドレスのフォーマットに沿っているか確認できる。
+	return validation.ValidateStruct(&user,
+		validation.Field(
+			&user.Email,
+			validation.Required.Error("email is required"),
+			validation.RuneLength(1, 30).Error("limited max 30 char"),
+			is.Email.Error("is not valida email format"),
+		),
+		validation.Field(
+			&user.Password,
+			validation.Required.Error("password is required"),
+			validation.RuneLength(6, 30).Error("limited min 6 max 30 char"),
+		),
+		validation.Field(
+			&user.Name,
+			validation.Required.Error("name is required"),
+			validation.RuneLength(1, 20).Error("limited min 1 max 20 char"),
+		),
+	)
+}
+
+func (uv *userValidator) LoginValidate(user model.User) error {
 	return validation.ValidateStruct(&user,
 		validation.Field(
 			&user.Email,

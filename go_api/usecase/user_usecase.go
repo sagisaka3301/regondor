@@ -53,7 +53,7 @@ func (uu *userUsecase) SignUp(user model.User) (model.UserResponse, error) {
 	}
 
 	// CreateUserはユーザーオブジェうとのポインタを引数で受け取るので、&newUserでnewUserのポインタを取得し、引数で渡す。
-	newUser := model.User{Email: user.Email, Password: string(hash)}
+	newUser := model.User{Email: user.Email, Password: string(hash), Name: user.Name}
 	if err := uu.ur.CreateUser(&newUser); err != nil {
 		return model.UserResponse{}, err
 	}
@@ -63,6 +63,7 @@ func (uu *userUsecase) SignUp(user model.User) (model.UserResponse, error) {
 	resUser := model.UserResponse{
 		ID:    newUser.ID,
 		Email: newUser.Email,
+		Name:  newUser.Name,
 	}
 	// 成功している場合は、errorが発生しないので、nilになる。
 	return resUser, nil
@@ -77,7 +78,7 @@ func (uu *userUsecase) Login(user model.User) (string, error) {
 
 	// validation
 	// 返り値の型が、stringとerrorになっているので、空の文字列とエラーを返す。
-	if err := uu.uv.UserValidate(user); err != nil {
+	if err := uu.uv.LoginValidate(user); err != nil {
 		return "", err
 	}
 
