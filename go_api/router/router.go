@@ -12,7 +12,7 @@ import (
 )
 
 // ルーターの中でタスクコントローラーを使用できるようにするために、引数にタスクコントローラーも追加。
-func NewRouter(uc controller.IUserController, tc controller.ITaskController) *echo.Echo {
+func NewRouter(uc controller.IUserController, tc controller.ITaskController, mc controller.IMypageController) *echo.Echo {
 	// echoのインスタンスに対し、エンドポイントを作成。
 	e := echo.New()
 
@@ -67,6 +67,14 @@ func NewRouter(uc controller.IUserController, tc controller.ITaskController) *ec
 	t.POST("", tc.CreateTask)
 	t.PUT("/:taskId", tc.UpdateTask)
 	t.DELETE("/:taskId", tc.DeleteTask)
+
+	m := e.Group("/mypage")
+	m.Use(echojwt.WithConfig(echojwt.Config{
+		SigningKey:  []byte(os.Getenv("SECRET")),
+		TokenLookup: "cookie:token",
+	}))
+
+	m.GET("", mc.GetUser)
 
 	return e
 }

@@ -13,6 +13,13 @@ export type Credential = {
   password: string
 }
 
+export type MyPage = {
+  id: number
+  email: string
+  name: string
+  updated_at: Date
+}
+
 export type Login = {
   email: string
   password: string

@@ -1,0 +1,54 @@
+body {
+  background-color: rgb(248, 242, 231);
+  color: rgb(68, 64, 64);
+}
+
+.app-container {
+  display: flex;
+}
+
+.header-pseudo {
+  width: 20%;
+  max-width: 300px;
+}
+
+.header {
+  width: 20%;
+  max-width: 300px;
+  position: fixed;
+  height: 100vh;
+  min-height: 640px;
+  background-color: rgb(241, 220, 191);
+}
+
+.header-logo {
+  text-align: center;
+  margin-top: 70px;
+}
+
+.header-logo img {
+  width: 120px;
+  margin: 0 auto;
+}
+
+main {
+  width: 100%;
+}
+
+.menu-wrap {
+  margin-top: 150px;
+  text-align: center;
+}
+
+.menu-wrap li {
+  margin-bottom: 40px;
+}
+.menu-wrap a {
+  padding: 10px 15px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.menu-wrap a:hover {
+  border-bottom: 2px solid rgb(68, 64, 64);
+}

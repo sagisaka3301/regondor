@@ -11,6 +11,12 @@ export const useMutateAuth = () => {
   // useErrorのカスタムフックからswitchErrorHandling関数を読み込む。
   const { switchErrorHandling } = useError()
 
+  // エラーハンドリング
+  const handleMutationError = (err: any) => {
+    const errorMessage = err.response.data.message || err.response.data
+    switchErrorHandling(errorMessage)
+  }
+
   // ログインを行うためのMutationを作る。react-queryのuseMutationを使い実装。
   const loginMutation = useMutation(
     // 引数でクレデンシャル情報(EmailとPasswordの情報)を受け取り、axiosのPOSTメソッドでloginのエンドポイントにアクセス。
@@ -25,13 +31,7 @@ export const useMutateAuth = () => {
       // エラーが発生した場合、エラーメッセージを取り出し、switchErrorHandling関数を呼び出す。
       // csrfミドルウェア関係のエラーだけは、エラーメッセージがresponse.data.messageの階層に格納されるので、そのエラーが存在する場合はresponse.data.messageから取り出して関数を呼ぶ。
       // それ以外の場合は、response.dataからメッセージを取り出す。
-      onError: (err: any) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
-      },
+      onError: handleMutationError,
     }
   )
 
@@ -41,13 +41,7 @@ export const useMutateAuth = () => {
     async (user: Credential) =>
       await axios.post(`${process.env.REACT_APP_API_URL}/signup`, user),
     {
-      onError: (err: any) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
-      },
+      onError: handleMutationError,
     }
   )
 
@@ -59,15 +53,10 @@ export const useMutateAuth = () => {
         resetEditedTask()
         navigate('/')
       },
-      onError: (err: any) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
-      },
+      onError: handleMutationError,
     }
   )
+
   // カスタムフックの最後に3つ定義した関数を返すようにする。
   return { loginMutation, registerMutation, logoutMutation }
 }
