@@ -55,6 +55,8 @@ func (tc *taskController) GetTaskById(c echo.Context) error {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
 	// その中からuseridの値を取得し、変数に格納。
+	// このuser_idとはjwtの一部としてエンコードされており、リクエストを送信したuserのidを表している。
+	// よって、これはtaskではなく、ログインしているuser自体のidを示す。
 	userId := claims["user_id"]
 	// リクエストパラメーターからtaskIdを取得する。
 	// string型になっているので、

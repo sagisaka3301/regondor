@@ -57,6 +57,7 @@ func (tu *taskUsecase) GetAllTasks(userId uint) ([]model.TaskResponse, error) {
 // idからタスクを取り出す。
 func (tu *taskUsecase) GetTaskById(userId uint, taskId uint) (model.TaskResponse, error) {
 	task := model.Task{}
+	// ここで、taskを引数でGetTaskByIdに預け、データを取得し貼ってもらう。
 	if err := tu.tr.GetTaskById(&task, userId, taskId); err != nil {
 		return model.TaskResponse{}, err
 	}

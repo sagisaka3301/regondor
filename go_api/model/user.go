@@ -17,3 +17,10 @@ type UserResponse struct {
 	Email string `json:"email" gorm:"unique"`
 	Name  string `json:"name"`
 }
+
+type MypageResponse struct {
+	ID        uint      `json:"id" gorm:"primaryKey"`
+	Email     string    `json:"email" gorm:"unique"`
+	Name      string    `json:"name"`
+	UpdatedAt time.Time `json:"updated_at"`
+}

@@ -34,6 +34,7 @@ func NewTaskRepository(db *gorm.DB) ITaskRepository {
 // ログイン済みのユーザーが作成したすべての投稿一覧を取得
 // ブレークポイントとはソフトウェアのデバッグ中にプログラムの実行を一時停止するための指定されたポイント
 func (tr *taskRepository) GetAllTasks(tasks *[]model.Task, userId uint) error {
+	// taskテーブルとuserテーブルをJoinで結合。そして、タスク情報とそれに関するユーザー情報を取得。
 	if err := tr.db.Joins("User").Where("user_id=?", userId).Order("created_at").Find(tasks).Error; err != nil {
 		return err
 	}
