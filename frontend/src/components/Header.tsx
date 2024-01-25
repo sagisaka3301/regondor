@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import '../css/common.css'
+// import '../css/common.css'
 
 const Header = () => {
   return (
@@ -12,16 +12,16 @@ const Header = () => {
         <ul className="menu">
           <li>
             {/* exact:完全一致。/aboutの場合も、/がその一部であるため、activeクラスが付与されてしまうことを防ぐ。 */}
-            <Link to="/">Home</Link>
+            <Link to="/todo">Home</Link>
           </li>
           <li>
-            <Link to="/">About</Link>
+            <Link to="/todo">About</Link>
           </li>
           <li>
             <Link to="/mypage">MyPage</Link>
           </li>
           <li>
-            <Link to="/">Settings</Link>
+            <Link to="/todo">Settings</Link>
           </li>
         </ul>
       </nav>

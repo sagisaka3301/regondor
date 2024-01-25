@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import Header from './Header'
+import '../css/common.css'
 
 interface AppLayoutProps {
   children: ReactNode
