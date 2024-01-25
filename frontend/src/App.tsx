@@ -1,10 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 // import logo from './logo.svg';
 // import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Auth } from './components/Auth'
 import { Todo } from './components/Todo'
 import { MyPage } from './components/MyPage'
+import { Entrance } from './components/Entrance'
 import axios from 'axios'
 import { CsrfToken } from './types'
 
@@ -24,10 +25,13 @@ function App() {
     // 関数の実行
     getCsrfToken()
   }, [])
+
+  const [isDark, setIsDark] = useState(false)
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Auth />} />
+        <Route path="/" element={<Entrance />} />
+        <Route path="/auth" element={<Auth />} />
         <Route path="/todo" element={<Todo />} />
         <Route path="/mypage" element={<MyPage />} />
       </Routes>
